@@ -1,20 +1,43 @@
+var certificate_domains = [
+  'verisign.com',
+  'digicert.com'
+];
 var observeObj = {
   observe: function (subject, topic, data) {
     if (topic == "http-on-modify-request") {
       var curIsHttps =  window.top.getBrowser().selectedBrowser.contentWindow.location.href.substr(0, 5) === 'https';
       if (!curIsHttps) {
-        Firebug.Console.log('This page is not https');
+        //Firebug.Console.log('This page is not https');
+        dump('This page is not https\n');
         return;
       }
       subject.QueryInterface(Components.interfaces.nsIHttpChannel);
       var url = subject.URI.spec; /* url being requested. you might want this for something else */
       var start = url.substr(0, 5)
+      //Firebug.Console.log('checking', url);
+      if (is_certificate_domain(url)) {
+        //Firebug.Console.log('Letting through certificate: ' + url);
+        dump('Letting though cert: ' + url + '\n');
+        return;
+      }
       if (start !== 'https') {
-        Firebug.Console.log('not https but ' + start + ': ' + url);
+        //Firebug.Console.log('Blocking non https: ' + url);
+        dump('Blocking non https: ' + url + '\n');
+        subject.cancel(Components.results.NS_BINDING_ABORTED);
       }
     }
   }
 };
+
+var is_certificate_domain = function(url) {
+  var domain = String(url.match(/[^./]+\.(com|org|edu)+/g));
+  for (var i = 0; i < certificate_domains.length; i++) {
+    if (domain === certificate_domains[i]) {
+      return true; 
+    }
+  }
+  return false;
+}
 
 var observerService = Cc["@mozilla.org/observer-service;1"]
     .getService(Ci.nsIObserverService);
@@ -22,6 +45,14 @@ var observerService = Cc["@mozilla.org/observer-service;1"]
 observerService.addObserver(observeObj,
     "http-on-modify-request", false);
 
+
+
+
+
+
+/// OTHER STUFF
+//
+//  OTHER STUFF
 // page load stuff
 //var myExtension = {
     //init: function() {
