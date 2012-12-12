@@ -39,14 +39,13 @@ let policy =
 	// nsIContentPolicy interface implementation
 	shouldLoad: function(contentType, contentLocation, requestOrigin, node, mimeTypeGuess, extra)
 	{
-    var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(
-        Components.interfaces.nsIWindowWatcher);
 
-    dump(ww.activeWindow.document.documentURI);
     // var curIsHttps =  window.top.getBrowser().selectedBrowser.contentWindow.location.href.substr(0, 5) === 'https';
 
     // dump(window.top.getBrowser().selectedBrowser.contentWindow.location.href);
     // dump(curIsHttps);
+
+    // dump(contentLocation.scheme + " " + requestOrigin.scheme + "\n");
 
 		// dump("shouldLoad: " + contentType + " " +
 		// 											(contentLocation ? contentLocation.spec : "null") + " " +
@@ -54,15 +53,16 @@ let policy =
 		// 											node + " " +
 		// 											mimeTypeGuess + "\n");
 
-    // if (curIsHttps) {
+    if (requestOrigin.scheme === 'https' &&
+        contentLocation.scheme !== 'https') {
 
-    //   if (contentType === Ci.nsIContentPolicy.TYPE_IMAGE ||
-    //       contentType === Ci.nsIContentPolicy.TYPE_STYLESHEET ||
-    //       contentType === Ci.nsIContentPolicy.TYPE_SCRIPT) {
+      if (contentType === Ci.nsIContentPolicy.TYPE_IMAGE ||
+          contentType === Ci.nsIContentPolicy.TYPE_STYLESHEET ||
+          contentType === Ci.nsIContentPolicy.TYPE_SCRIPT) {
 
-    //     dump(contentLocation.scheme); 
-    //   }
-    // }
+        return Ci.nsIContentPolicy.REJECT_REQUEST;
+      }
+    }
 
 		return Ci.nsIContentPolicy.ACCEPT;
 	},
