@@ -1,32 +1,36 @@
 <?xml version="1.0"?>
-<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
-     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+<!-- This Source Code is subject to the terms of the Mozilla Public License
+   - version 2.0 (the "License"). You can obtain a copy of the License at
+   - http://mozilla.org/MPL/2.0/. -->
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-  
-    <em:id>helloworld@mozilla.doslash.org</em:id>
-    <em:name>Hello World extension for Firefox</em:name>
+    <em:id>testpolicy@adblockplus.org</em:id>
     <em:version>1.0</em:version>
-    <em:description>Demo extension.</em:description>
-    <em:creator>Nickolay Ponomarev</em:creator>
-    <!-- optional items -->
-    <em:contributor>A person who helped you</em:contributor>
-    <em:contributor>Another one</em:contributor>
-    <em:homepageURL>http://kb.mozillazine.org/Getting_started_with_extension_development</em:homepageURL>
-    <!--em:optionsURL>chrome://sampleext/content/settings.xul</em:optionsURL>
-    <em:aboutURL>chrome://sampleext/content/about.xul</em:aboutURL>
-    <em:iconURL>chrome://sampleext/skin/mainicon.png</em:iconURL>
-    <em:updateURL>http://sampleextension.mozdev.org/update.rdf</em:updateURL-->
-
-    <!-- Firefox -->
+    <em:name>Content policy test</em:name>
+    <em:description></em:description>
+    <em:creator>Wladimir Palant</em:creator>
+    <em:homepageURL>http://adblockplus.org/</em:homepageURL>
+    <em:type>2</em:type>
+    <em:bootstrap>true</em:bootstrap>
+    <em:localized>
+      <Description>
+        <em:locale>en-US</em:locale>
+        <em:creator>Wladimir Palant</em:creator>
+        <em:name>Content policy test</em:name>
+        <em:description></em:description>
+        <em:homepageURL>http://adblockplus.org/</em:homepageURL></Description>
+    </em:localized>
     <em:targetApplication>
       <Description>
-        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>3.6</em:minVersion>
-        <em:maxVersion>4.0.*</em:maxVersion>
+        <!-- toolkit -->
+        <em:id>toolkit@mozilla.org</em:id>
+        <em:minVersion>8.0</em:minVersion>
+        <em:maxVersion>99.0</em:maxVersion>
       </Description>
     </em:targetApplication>
-
   </Description>
-
 </RDF>
