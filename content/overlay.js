@@ -12,6 +12,7 @@ var policy =
   classID: Components.ID("{12345678-1234-1234-1234-123456789abc}"),
   contractID: "@mozilla.doslash.org/test-policy;1",
   xpcom_categories: ["content-policy"],
+  plugin_on: true,
 
   init: function()
   {
@@ -59,8 +60,8 @@ var policy =
   // nsIContentPolicy interface implementation
   shouldLoad: function(contentType, contentLocation, requestOrigin, node, mimeTypeGuess, extra)
   {
-    if (requestOrigin.scheme === 'https' &&
-        contentLocation.scheme !== 'https') {
+    if (this.plugin_on && (requestOrigin.scheme === 'https' &&
+        contentLocation.scheme !== 'https')) {
 
       if (contentType === Ci.nsIContentPolicy.TYPE_IMAGE ||
           contentType === Ci.nsIContentPolicy.TYPE_STYLESHEET ||
@@ -84,6 +85,16 @@ var policy =
     if (outer)
       throw Cr.NS_ERROR_NO_AGGREGATION;
     return this.QueryInterface(iid);
+  },
+
+  onMenuItemCommand: function(event) {
+    //alert('menu here');
+    this.plugin_on = !this.plugin_on;
+    if (this.plugin_on) {
+      alert('Plugin is on');
+    } else {
+      alert('Plugin is off');
+    }
   },
 
   // nsISupports interface implementation
