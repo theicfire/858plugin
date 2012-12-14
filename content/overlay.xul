@@ -6,7 +6,7 @@
          <script type="application/javascript;version=1.7" src="overlay.js"/>
 
   <menupopup id="menu_ToolsPopup">
-    <menuitem id="helloworld-hello" label="&helloworld;" 
+    <menuitem id="helloworld-hello" label="Toggle HTTPS Plugin" 
               oncommand="policy.onMenuItemCommand(event);"/>
   </menupopup>
 </overlay>
