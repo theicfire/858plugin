@@ -63,9 +63,8 @@ var policy =
     if (this.plugin_on && (requestOrigin.scheme === 'https' &&
         contentLocation.scheme !== 'https')) {
 
-      if (contentType === Ci.nsIContentPolicy.TYPE_IMAGE ||
-          contentType === Ci.nsIContentPolicy.TYPE_STYLESHEET ||
-          contentType === Ci.nsIContentPolicy.TYPE_SCRIPT) {
+      if (contentType !== Ci.nsIContentPolicy.TYPE_DOCUMENT &&
+          contentType !== Ci.nsIContentPolicy.TYPE_SUBDOCUMENT) {
 
         return Ci.nsIContentPolicy.REJECT_REQUEST;
       }
