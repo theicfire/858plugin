@@ -39,20 +39,6 @@ let policy =
   // nsIContentPolicy interface implementation
   shouldLoad: function(contentType, contentLocation, requestOrigin, node, mimeTypeGuess, extra)
   {
-
-    // var curIsHttps =  window.top.getBrowser().selectedBrowser.contentWindow.location.href.substr(0, 5) === 'https';
-
-    // dump(window.top.getBrowser().selectedBrowser.contentWindow.location.href);
-    // dump(curIsHttps);
-
-    // dump(contentLocation.scheme + " " + requestOrigin.scheme + "\n");
-
-    // dump("shouldLoad: " + contentType + " " +
-    //                       (contentLocation ? contentLocation.spec : "null") + " " +
-    //                       (requestOrigin ? requestOrigin.spec : "null") + " " +
-    //                       node + " " +
-    //                       mimeTypeGuess + "\n");
-
     if (requestOrigin.scheme === 'https' &&
         contentLocation.scheme !== 'https') {
 
